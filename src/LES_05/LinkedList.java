@@ -6,7 +6,6 @@ public class LinkedList {
 
     public LinkedList(){
         head = null;
-
     }
 
     public void add(Node node){
