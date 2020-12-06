@@ -5,11 +5,13 @@ public class Node {
     private String account;
 
     public Node next;
+    public Node prev;
 
     public Node(String account, double bitcoin){
         this.account = account;
         this.bitcoin = bitcoin;
         this.next = null;
+        this.prev = null;
     }
 
 
