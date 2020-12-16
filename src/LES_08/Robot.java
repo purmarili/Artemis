@@ -1,4 +1,4 @@
-package LES_05;
+package LES_08;
 
 public class Robot {
     private int age;

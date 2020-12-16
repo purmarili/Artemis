@@ -1,4 +1,4 @@
-package LES_05;
+package LES_08;
 
 public class SuperRobot extends Robot {
     private int p;
@@ -14,5 +14,8 @@ public class SuperRobot extends Robot {
 
     public void print(){
         System.out.println(this.getAge() + this.getName() + this.getColor());
+    }
+    public void h(){
+        System.out.println("Hey");
     }
 }

@@ -10,6 +10,5 @@ public class Main {
         OurArrayList list = new OurArrayList();
         list.add("nika");
         list.add("gio");
-        System.out.println(list.get(1));
     }
 }
