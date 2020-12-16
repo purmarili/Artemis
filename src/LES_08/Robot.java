@@ -41,7 +41,8 @@ public class Robot {
         this.color = color;
     }
 
-    public void print(){
 
+    public void print(){
+        System.out.println("I am robot");
     }
 }
