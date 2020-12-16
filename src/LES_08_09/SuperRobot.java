@@ -1,4 +1,4 @@
-package LES_08;
+package LES_08_09;
 
 public class SuperRobot extends Robot {
     private int p;
