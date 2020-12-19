@@ -1,12 +1,12 @@
 package Zoo;
 
 public class Vivarium {
-    private Animal[] inhabitants;
+    private Animal[] animals;
     private int area;
     private int constructionYear;
 
-    public Vivarium(Animal[] inhabitants, int area, int constructionYear){
-        this.inhabitants = inhabitants;
+    public Vivarium(Animal[] animals, int area, int constructionYear){
+        this.animals = animals;
         this.area = area;
         this.constructionYear = constructionYear;
     }
@@ -15,9 +15,9 @@ public class Vivarium {
         // A pretty inefficient implementation.
         // One should rather use StringBuilder or StringBuffer.
         String result = "[area: " + area + ", constructionYear: " + constructionYear + ", animals: ";
-        for(int i=0; i<inhabitants.length; i++){
-            result += inhabitants[i].toString();
-            if(i!=inhabitants.length - 1){
+        for(int i = 0; i< animals.length; i++){
+            result += animals[i].toString();
+            if(i!= animals.length - 1){
                 result += ", ";
             } else {
                 result += "]";
@@ -28,8 +28,8 @@ public class Vivarium {
 
     public int getCosts(){
         int totalFoodCosts = 0;
-      	for(int i=0; i<inhabitants.length; i++){
-        	totalFoodCosts += inhabitants[i].getFoodCosts();
+      	for(int i = 0; i< animals.length; i++){
+        	totalFoodCosts += animals[i].getFoodCosts();
         }
         return totalFoodCosts + 900 + area * 100 + area * (2019 - constructionYear) * 5;
     }

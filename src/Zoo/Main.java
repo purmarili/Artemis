@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         Animal animal1 = new Animal("pirveli", 5);
+
         Animal animal2 = new Animal("meore", 4);
         Animal animal3 = new Animal("mesame", 20);
         Animal animal4 = new Animal("meotxe", 15);
@@ -27,5 +28,6 @@ public class Main {
 
         System.out.println(zoo.toString());
         System.out.println(zoo.getCosts());
+
     }
 }
