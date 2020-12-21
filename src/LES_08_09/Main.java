@@ -1,17 +1,14 @@
 package LES_08_09;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
         Robot robot = new Robot();
-        SuperRobot superRobot = new AIRobot();
+        Robot superRobot = new SuperRobot();
         AIRobot aiRobot = new AIRobot();
-
-//        lst.add(robot);
-//        lst.add(superRobot);
-//        lst.add(aiRobot);
-
+        ArrayList<Robot> ar = new ArrayList<>();
     }
 
     // me-3
