@@ -6,6 +6,11 @@ public class OurArrayList<T> implements OurList<T>{
     private Object [] data;
     private int allocated = 10;
     private int size = 0;
+    private static int staticSize = 0;
+
+    public static int getStaticSize(){
+        return staticSize;
+    }
 
     public OurArrayList(){
         data = new Object[allocated];
@@ -18,6 +23,7 @@ public class OurArrayList<T> implements OurList<T>{
         }
         data[size] = newElem;
         size++;
+        staticSize++;
     }
 
     private void grow(){
@@ -42,6 +48,7 @@ public class OurArrayList<T> implements OurList<T>{
         }
         data = newData;
         size--;
+        staticSize--;
     }
 
     @Override
@@ -68,5 +75,10 @@ public class OurArrayList<T> implements OurList<T>{
             return null;
         }
         return (T) data[index];
+    }
+
+    @Override
+    public int getK(int a, int b) {
+        return 0;
     }
 }

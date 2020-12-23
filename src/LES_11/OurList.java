@@ -7,4 +7,7 @@ public interface OurList<T> {
     public int size();
     public boolean contains(T elem);
     public Object get(int index);
+    default int getK(int a, int b){
+        return a + b;
+    }
 }
