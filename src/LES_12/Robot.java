@@ -1,10 +1,15 @@
 package LES_12;
 
 public class Robot<T> {
+    public static int number = 0;
     private T friend;
     private int age;
     private String name;
     private String color;
+
+    public static int getNumber(){
+        return number;
+    }
 
     public Robot(int age, String name, String color, T p) {
         this.friend = p;

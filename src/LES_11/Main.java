@@ -15,6 +15,8 @@ import java.util.function.Predicate;
 public class Main {
     public static void main(String[] args) {
 
+        off();
+
         Scanner sc = new Scanner(System.in);
         int price = sc.nextInt();
         int maxKupiurebi = sc.nextInt();
@@ -23,28 +25,55 @@ public class Main {
         for (int i=0; i<kupiurebiSize; i++){
             kupiurebi[i] = sc.nextInt();
         }
+        Arrays.sort(kupiurebi);
         System.out.println(Arrays.toString(kupiurebi));
 
         int count = 0, index = 0;
-
-        int min = findMinKupiurebi(price, kupiurebiSize - 1, index, kupiurebi, maxKupiurebi, count);
+        int a = 5, b = 10;
+        System.out.println(Math.min(a, b));
+        ArrayList<Integer> lst = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> help = new ArrayList<>();
+        int min = findMinKupiurebi(price, kupiurebiSize - 1, index, kupiurebi, count, new ArrayList<>(), help);
         if (min == Integer.MAX_VALUE) min = -1;
         System.out.println(min);
+        int ind = 0, max = 999999;
+        for (int i=0; i<help.size(); i++){
+            if (help.get(i).size() < max){
+                max = help.get(i).size();
+                ind = i;
+            }
+        }
+        System.out.println(help.get(ind));
     }
+    // 50, 4, 0, [], 0
+    // 10 5 20 3
+    // 1) 40, 4, 1, [], 1                                                                   2) 50, 4, 1, [], 0
+    // 1) 35, 4, 2, [], 2      2) 40, 4, 2, [], 1
 
+    private static int findMinKupiurebi(int price, int kupiurebiSize, int index, int[] kupiurebi, int count, ArrayList<Integer> lst, ArrayList<ArrayList<Integer>> help) {
+        if (price == 0){
+            System.out.println(lst.toString());
+            help.add(lst);
+            return count;
+        }
+        if (price < 0 || index > kupiurebiSize) return Integer.MAX_VALUE;
 
-    private static int findMinKupiurebi(int price, int kupiurebiSize, int index, int[] kupiurebi, int maxKupiurebi, int count) {
-        if (price == 0) return count;
-        if (price < 0) return Integer.MAX_VALUE;
-        if (index > kupiurebiSize) return Integer.MAX_VALUE;
+        ArrayList<Integer> lst1 = new ArrayList<>(lst);
+        lst1.add(kupiurebi[index]);
+        System.out.println(lst1.toString());
+        int with = findMinKupiurebi(price - kupiurebi[index], kupiurebiSize, index+1, kupiurebi,
+                count+1, lst1, help);
 
-        int with = findMinKupiurebi(price - kupiurebi[index], kupiurebiSize, index+1, kupiurebi, maxKupiurebi-1, count+1),
-            without = findMinKupiurebi(price, kupiurebiSize, index+1, kupiurebi, maxKupiurebi-1, count);
+        ArrayList<Integer> lst2 = new ArrayList<>(lst);
+
+        System.out.println(lst2.toString());
+        int without = findMinKupiurebi(price, kupiurebiSize, index+1, kupiurebi, count, lst2, help);
+
         return Math.min(with, without);
     }
 
 
-    private void off(){
+    public static void off(){
         OurArrayList<String> k = new OurArrayList<>();
         k.add("gasd");
         k.add("gasd");
