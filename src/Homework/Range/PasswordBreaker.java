@@ -1,4 +1,4 @@
-package Range;
+package Homework.Range;
 
 import java.util.function.Function;
 

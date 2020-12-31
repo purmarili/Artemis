@@ -1,4 +1,4 @@
-package QuadTree;
+package Homework.QuadTree;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

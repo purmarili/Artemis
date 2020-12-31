@@ -1,10 +1,7 @@
-package Range;
-
-import jdk.jshell.execution.Util;
+package Homework.Range;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class PasswordIterator implements Iterator<String> {
 

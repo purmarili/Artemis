@@ -1,4 +1,4 @@
-package QuadTree;
+package Homework.QuadTree;
 
 public interface QuadTreeNode {
     QuadTreeNode getTopLeft();

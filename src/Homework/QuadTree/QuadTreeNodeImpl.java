@@ -1,4 +1,4 @@
-package QuadTree;
+package Homework.QuadTree;
 
 import java.util.NoSuchElementException;
 
