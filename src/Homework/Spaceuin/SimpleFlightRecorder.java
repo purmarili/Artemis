@@ -43,10 +43,10 @@ public final class SimpleFlightRecorder implements FlightRecorder {
 	}
 
 	private static void randomDelay() {
-	    try {
-            Thread.sleep(ThreadLocalRandom.current().nextLong(5, 75));
-        } catch (@SuppressWarnings("unused") InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+		try {
+			Thread.sleep(ThreadLocalRandom.current().nextLong(5, 75));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }
