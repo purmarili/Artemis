@@ -1,11 +1,16 @@
 package LES_17;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Recursion {
+
+    static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
+
         System.out.println(C(10, 5));
         System.out.println(stringtoInteger("-1576"));
+
     }
 
     public static int C (int n, int k){
@@ -28,17 +33,5 @@ public class Recursion {
         return stringtoInteger(s.substring(0, s.length() - 1)) * 10 + stringtoInteger(s.substring(s.length() - 1));
     }
 
-    // 5 3 7 9 12,  3
 
-    public static void allCombinations(int [] arr, int n){
-        allComb(arr, n, 0, new ArrayList<>(), new ArrayList<ArrayList<Integer>>());
-    }
-
-    private static void allComb(int [] arr, int n, int index, ArrayList<Integer> current, ArrayList<ArrayList<Integer>> all){
-        if (n < 0) return;
-
-        if (current.size() == n) all.add(current);
-        if (index > arr.length) return;
-
-    }
 }
