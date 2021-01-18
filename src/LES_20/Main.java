@@ -18,7 +18,6 @@ public class Main {
         for (int i=0; i<n; i++){
             list.append(sc.nextInt());
         }
-        System.out.println(list.toString());
         OpsOnLists.mixedList(list);
         System.out.println(list.toString());
 

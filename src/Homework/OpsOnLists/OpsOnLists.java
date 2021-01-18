@@ -66,19 +66,29 @@ public class OpsOnLists {
     }
 
     public static IntDoubleList mixedList(IntDoubleList list) {
-        int size = list.size() / 2, index = 0;
+        int size = (list.size() - 1) / 2, index = 0;
         IntDoubleListElement head = list.getFirstElement();
         IntDoubleListElement tail = list.getLastElement();
         while (index < size){
-            if (index % 2 == 1){
-                IntDoubleListElement h1 = head;
-                head.prev.next = tail;
-                head.next.prev = tail;
-                tail.prev.next = h1;
-                tail.next.prev = h1;
-            }
-            head = head.next;
-            tail = tail.prev;
+
+            /*
+                1 2 3 4 5 6 7 8
+                1 8 2 3 4 5 6 7
+                1 8 2 7 3 4 5 6
+                1 8 2 7 3 6 4 5
+                1 8 2 7 3 6 4 5
+             */
+
+            IntDoubleListElement headNext = head.next;
+            IntDoubleListElement tailPrev = tail.prev;
+
+            head.next = tail;
+            head.next.prev = head;
+            headNext.prev = tail;
+            tail = tailPrev;
+            tail.next = null;
+            head.next.next = headNext;
+            head = headNext;
             index++;
         }
         return list;
