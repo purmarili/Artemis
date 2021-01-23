@@ -1,97 +1,140 @@
 package Exam;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
 public class Sparse2DArray<T> {
-    private LinkedList<Element> arr;
-    private final int xSize, ySize;
+    private int sizeX;
+    private int sizeY;
+    private List<Element> elems;
 
-    public int getxSize() {
-        return xSize;
+    @Override
+    public String toString() {
+        String s = "";
+        for (Element e : elems){
+            s += e.getX() + " " + e.getY() + " " + e.getValue();
+            s += "\n";
+        }
+        return s;
     }
 
-    public int getySize() {
-        return ySize;
+    public Sparse2DArray(int sizeX, int sizeY){
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        elems = new LinkedList<>();
     }
 
-    public Sparse2DArray(int x, int y) {
-        arr = new LinkedList<>();
-        this.xSize = x;
-        this.ySize = y;
+    public T[][] toArray(Function<Integer, T[]> array1dFunc, Function<Integer, T[][]> array2dFunc){
+        T[][] res = array2dFunc.apply(sizeX);
+        for (int i=0; i<sizeX; i++){
+            T[] curr = array1dFunc.apply(sizeY);
+            res[i] = curr;
+        }
+        for (int i=0; i<res.length; i++){
+            for (int j=0; j<res[0].length; j++){
+                res[i][j] = null;
+            }
+        }
+        for (Element elem : elems){
+            res[elem.getX()][elem.getY()] = elem.getValue();
+        }
+        return res;
     }
 
-    public T get (int x, int y) {
-        if (x >= xSize || x < 0 || y >= ySize || y < 0) return null;
-        for (int i=0; i<arr.size(); i++){
-            if (arr.get(i).xIndex == x && arr.get(i).yIndex == y){
-                return arr.get(i).value;
+    public static <T> Sparse2DArray<T> fromArray(T[][] array2d){
+        if (array2d == null) throw new RuntimeException();
+        for (int i=0; i<array2d.length; i++){
+            if (array2d[i] == null) throw new RuntimeException();
+        }
+        for (int i=1; i<array2d.length; i++){
+            if (array2d[i - 1].length != array2d[i].length) throw new RuntimeException();
+        }
+
+        Sparse2DArray<T> res = new Sparse2DArray<>(array2d.length, array2d[0].length);
+        for (int i=0; i< array2d.length; i++){
+            for (int j=0; j<array2d[0].length; j++){
+                res.set(i, j, array2d[i][j]);
+            }
+        }
+
+        return res;
+
+    }
+
+    public void sortElemenets(){
+        Collections.sort(elems, Comparator.comparingInt(Element::getX)
+                                .thenComparingInt(Element::getY));
+    }
+
+    public T get(int x, int y){
+        if (x < 0 || x >= sizeX || y < 0 || y >= sizeY)
+            throw new IndexOutOfBoundsException();
+        for (Element e : elems){
+            if (e.getX() == x && e.getY() == y){
+                return e.getValue();
             }
         }
         return null;
     }
 
-    public void set (int x, int y, T value) {
-        if (x >= xSize || x < 0 || y >= ySize || y < 0) return;
-        for (Element element : arr) {
-            if (element.xIndex == x && element.yIndex == y) {
-                element.value = value;
-            }
-        }
-    }
+    public void set(int x, int y, T value){
+        if (x < 0 || x >= sizeX || y < 0 || y >= sizeY)
+            throw new IndexOutOfBoundsException();
 
-    public boolean hasDuplicateValues(){
-        for (int i=0; i<arr.size(); i++){
-            for (Element element : arr) {
-                if (arr.get(i).value == element.value) return false;
-            }
-        }
-        return true;
-    }
-
-    public T[][] toArray(Function<Integer, T[]> array1dFunc, Function<Integer, T[][]> array2dFunc){
-        T[][] res = array2dFunc.apply(xSize);
-        boolean hasIndex = false;
-        T value = null;
-        for (int i=0; i<xSize; i++){
-            for (int j=0; j<ySize; j++){
-                for (Element element : arr) {
-                    if (element.xIndex == i && element.yIndex == j) {
-                        hasIndex = true;
-                        value = element.value;
-                        break;
-                    }
-                }
-                if (hasIndex){
-                    res[i][j] = value;
+        for (Element e : elems){
+            if (e.getX() == x && e.getY() == y){
+                if (value == null){
+                    elems.remove(e);
                 }else{
-                    res[i][j] = null;
+                    e.setValue(value);
                 }
-                hasIndex = false;
-                value = null;
             }
         }
-        return res;
+        if (value == null) return;
+
+        Element elem = new Element(x, y, value);
+        elems.add(elem);
+
     }
 
-    @Override
-    public String toString() {
-        return "Sparse2DArray{" +
-                "arr=" + arr +
-                ", xSize=" + xSize +
-                ", ySize=" + ySize +
-                '}';
+    public int getSizeX() {
+        return sizeX;
     }
 
-    public class Element{
-        private final int xIndex;
-        private final int yIndex;
-        private T value;
+    public int getSizeY() {
+        return sizeY;
+    }
 
-        public Element(int xIndex, int yIndex, T value) {
-            this.xIndex = xIndex;
-            this.yIndex = yIndex;
-            this.value = value;
+    public class Element {
+        private int x;
+        private int y;
+        private T elem;
+
+        public Element(int x, int y, T elem){
+            this.x = x;
+            this.y = y;
+            if (elem == null)
+                throw new RuntimeException();
+            this.elem = elem;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY(){
+            return y;
+        }
+
+        public T getValue(){
+            return elem;
+        }
+
+        public void setValue(T elem){
+            this.elem = elem;
         }
     }
 }
