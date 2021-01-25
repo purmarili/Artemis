@@ -1,4 +1,4 @@
-package Exam;
+package Exam.CsvStreams;
 
 import java.io.IOException;
 import java.nio.file.Files;

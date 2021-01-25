@@ -1,4 +1,4 @@
-package Exam;
+package Exam.Sparse2DArray;
 
 import java.util.Collections;
 import java.util.Comparator;

@@ -28,7 +28,6 @@ public interface Relation<X,Y> {
     }
 
     default <Z> Relation<Z,Y> compose(Function<Z, Y> f) {
-//        return (x, y) -> test(f.apply(x), y);
-        return null;
+        return (x, y) -> test((X)x, f.apply(x));
     }
 }
