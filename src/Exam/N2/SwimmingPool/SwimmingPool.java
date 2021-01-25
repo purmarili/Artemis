@@ -1,4 +1,4 @@
-package Exam.N2;
+package Exam.N2.SwimmingPool;
 import java.util.*;
 
 public class SwimmingPool {

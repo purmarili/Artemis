@@ -1,4 +1,4 @@
-package Exam.N2;
+package Exam.N2.SwimmingPool;
 
 public class Lane extends Thread {
     private SwimWaitingQueue tasks = null;

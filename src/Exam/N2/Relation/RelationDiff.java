@@ -1,4 +1,4 @@
-package Exam.N2;
+package Exam.N2.Relation;
 
 import java.util.function.Function;
 
