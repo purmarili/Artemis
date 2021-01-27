@@ -13,7 +13,7 @@ public class Lane extends Thread {
                 return;
             Runnable swimmer = tasks.assign();
         } catch (Exception e){
-            run();
+            this.run();
         }
         interrupt();
     }

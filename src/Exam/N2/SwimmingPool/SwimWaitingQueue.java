@@ -12,10 +12,10 @@ public class SwimWaitingQueue {
         list.add(r);
     }
 
-    public synchronized Runnable assign() {
+    public synchronized Runnable assign() throws InterruptedException {
         while (list.isEmpty()){
-            System.out.println("waiting");
+            System.out.println("Waiting");
         }
-        return list.get(list.size() - 1);
+        return list.get(0);
     }
 }

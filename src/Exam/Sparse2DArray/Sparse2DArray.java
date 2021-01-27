@@ -28,6 +28,7 @@ public class Sparse2DArray<T> {
     }
 
     public T[][] toArray(Function<Integer, T[]> array1dFunc, Function<Integer, T[][]> array2dFunc){
+
         T[][] res = array2dFunc.apply(sizeX);
         for (int i=0; i<sizeX; i++){
             T[] curr = array1dFunc.apply(sizeY);
@@ -39,7 +40,9 @@ public class Sparse2DArray<T> {
             }
         }
         for (Element elem : elems){
-            res[elem.getX()][elem.getY()] = elem.getValue();
+            int x = elem.getX();
+            int y = elem.getY();
+            res[x][y] = elem.getValue();
         }
         return res;
     }

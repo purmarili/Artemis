@@ -1,7 +1,6 @@
 package Exam.Projection;
 
 public class Obstacle {
-
     private final int x;
     private final int y;
     private final int width;
