@@ -46,6 +46,13 @@ public class Main {
         for (int i=0; i<3; i++){
             lst.add(sc.nextLine());
         }
+        rel.negate().mirror().negate().negate().compose(f);
+
+        Relation<String, Integer> neg = rel.negate();
+
+
+        Relation<List<String>, Integer> r = rel.compose(f);
+        r.test(lst, 5);
 
         System.out.println(rel.compose(f).test(lst, 5));
 
