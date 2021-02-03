@@ -6,51 +6,48 @@ import java.util.stream.*;
 public class Sorts implements Iterable<Integer> {
     private boolean[] arr;
     private int indexOfIterator;
-    private int size;
 
     public Iterator<Integer> iterator() {
-        Iterator<Integer> it = new Iterator<Integer>() {
+        return new Iterator<Integer>() {
             @Override
             public boolean hasNext() {
-                boolean found = false;
-                for (int i=indexOfIterator; i<arr.length; i++){
-                    if (arr[i]){
-                        indexOfIterator = i;
-                        found = true;
-                        break;
-                    }
-                }
-                return found;
+                return indexOfIterator < arr.length;
             }
 
             @Override
             public Integer next() {
+                for (int i=indexOfIterator; i<arr.length; i++){
+                    if (arr[i]) {
+                        indexOfIterator = i;
+                        break;
+                    }
+                }
                 indexOfIterator++;
                 return indexOfIterator - 1;
             }
         };
-        return it;
     }
 
     public Sorts(int n, Stream<Integer> s) {
-        if (n < 0) throw new IllegalArgumentException();
-        arr = new boolean[n];
-        for (int i=0; i<n; i++){
-            arr[i] = false;
-        }
         List<Integer> lst = s.collect(Collectors.toList());
         for (int i=0; i<lst.size(); i++){
-            if (lst.get(i) < 0) throw new IllegalArgumentException();
+            if (lst.get(i) < 0 || lst.get(i) > n) throw new IllegalArgumentException();
+        }
+        int max = 0;
+        for (int i=0; i<lst.size(); i++){
+            if (lst.get(i) > max) max = lst.get(i);
+        }
+        arr = new boolean[max + 1];
+        for (int i=0; i<lst.size(); i++){
             arr[lst.get(i)] = true;
         }
-        size = lst.get(lst.size() - 1);
     }
 
     public boolean isEmpty() {
         for (int i=0; i<arr.length; i++){
-            if (arr[i]) return true;
+            if (arr[i]) return false;
         }
-        return false;
+        return true;
     }
 
     public void remove(Integer x) {
@@ -66,7 +63,7 @@ public class Sorts implements Iterable<Integer> {
         Integer [] res = new Integer[count];
         int index = 0;
         for (int i=0; i<arr.length; i++){
-            if (arr[i]){
+            if (arr[i]) {
                 res[index] = i;
                 index++;
             }
@@ -75,17 +72,19 @@ public class Sorts implements Iterable<Integer> {
     }
 
     public void meet(Sorts b) {
-        Integer [] second = b.sorted();
-        int size = second[second.length - 1] < this.size ? second.length : this.size;
-        boolean [] change = new boolean [size];
-        boolean [] tmp = new boolean[second[second.length - 1]];
-        for (int i=0; i<second.length; i++){
-            tmp[second[i]] = true;
+        int size = 0;
+        if (b.arr.length > this.arr.length){
+            size = this.arr.length;
+        }else{
+            size = b.arr.length;
         }
-        for (int i=0; i< change.length; i++){
-            if (tmp[i] && arr[i]) change[i] = true;
+        boolean [] newArr = new boolean[size];
+        for (int i=0; i< newArr.length; i++){
+            if (this.arr[i] && b.arr[i]){
+                newArr[i] = true;
+            }
         }
-        this.arr = change;
+        this.arr = newArr;
     }
 }
 
