@@ -18,7 +18,8 @@ public class LeftRotation {
     }
 
     public static List<Integer> rotateLeft(int d, List<Integer> arr) {
-        d = d & arr.size();
+        d = d % arr.size();
+        System.out.println(d);
         for (int i=0; i<d; i++){
             int tmp = arr.get(0);
             for (int j=0; j<arr.size() - 1; j++){

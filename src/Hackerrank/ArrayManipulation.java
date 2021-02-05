@@ -7,51 +7,37 @@ public class ArrayManipulation {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int a, b;
-        long k;
-        int n = sc.nextInt();
-        long m = sc.nextInt();
-        long[] arr = new long[n + 1];
-
-        // M*N
-
-        for (int i = 0; i < m; i++) {
-            a = sc.nextInt();
-            b = sc.nextInt();
-            k = sc.nextLong();
-            for (int j = a - 1; j < b; j++) {
-                arr[j] += k;
-            }
-        }
-        long max = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max) max = arr[i];
-        }
-        System.out.println(max);
+        System.out.println(get());
     }
 
-    static int get() {
+    static long get() {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        /*
-
-            0 0 0 0 0 0
-            100 -100 0 0 0 0
-            100 0 0 0 0
-
-         */
-
         /* Save interval endpoint's "k" values in array */
-        long[] array = new long[N + 1];
+        long[] arr = new long[N + 1];
         while (M > 0) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            int k = sc.nextInt();
-            array[a - 1] += k;
-            array[b] -= k;
+            int a = sc.nextInt(); // 2
+            int b = sc.nextInt(); // 4
+            int k = sc.nextInt(); // 100
+            arr[a - 1] += k;
+            arr[b] -= k;
             M--;
         }
-        return 0;
+        /*
+         *   1 2 3 4 5 6
+         *  [0 0 0 0 0 0]
+         *  [0 100 0 0 0 0] -> a=2, b=3, k=100
+         *  [0 100 50 0 0 0] -> a=3, b=3, k=50
+         *    -> a=4
+         *
+         * */
+        long max = arr[0];
+        long sum = arr[0];
+        for (int i=1; i<arr.length - 1; i++){
+            sum += arr[i];
+            if (sum > max) max = sum; // 150
+        }
+        return max;
     }
 }
