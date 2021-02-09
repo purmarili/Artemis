@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ReverseLinkedList {
 
-    static class SinglyLinkedListNode {
+    public static class SinglyLinkedListNode {
         public int data;
         public SinglyLinkedListNode next;
 
@@ -14,7 +14,6 @@ public class ReverseLinkedList {
             this.data = nodeData;
             this.next = null;
         }
-
     }
 
     static class SinglyLinkedList {
@@ -68,8 +67,11 @@ public class ReverseLinkedList {
         4 -> 3 -> 2 -> 1
     */
     static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
+
         SinglyLinkedListNode res = new SinglyLinkedListNode(head.data);
+        // head : 2 -> 3
         while (head.next != null) {
+            // head { data : 1 next -> data : 2 next -> data : 3 next -> null }
             SinglyLinkedListNode tmp = new SinglyLinkedListNode(head.next.data);
             head = head.next;
             tmp.next = res;
