@@ -5,10 +5,11 @@ import java.util.stream.*;
 
 public class Sorts implements Iterable<Integer> {
     private boolean[] arr;
-    private int indexOfIterator;
 
     public Iterator<Integer> iterator() {
+
         return new Iterator<Integer>() {
+            private int indexOfIterator = 0;
             @Override
             public boolean hasNext() {
                 return indexOfIterator < arr.length;
