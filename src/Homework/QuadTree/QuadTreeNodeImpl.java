@@ -8,6 +8,7 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
     private QuadTreeNodeImpl topRight = null;
     private QuadTreeNodeImpl bottomLeft = null;
     private QuadTreeNodeImpl bottomRight = null;
+    private int color = -1; // 0 - 255 || -1
     private final int[][] image;
     private final int dimension;
 
@@ -15,10 +16,13 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
     //             2           2           2           2
     //          3 3 3 3     3 3 3 3
 
-    public QuadTreeNodeImpl(int[][] image, int length) {
+    public QuadTreeNodeImpl(int[][] image, int length) { // 256 -> topleft { 128 -> topleft { 64
         this.image = image;
         this.dimension = length;
-        if (isLeaf()) return;
+        if (isLeaf()) {
+            this.color = image[0][0];
+            return;
+        }
 
         int[][] topLeftImage = divide(image, 0, 0, dimension / 2);
         int[][] topRightImage = divide(image, 0, dimension / 2, dimension / 2);
@@ -84,7 +88,8 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
         if (x < dimension / 2 && y < dimension / 2) topLeft.setRelativeColor(x, y, color);
         if (x < dimension / 2 && y >= dimension / 2) topRight.setRelativeColor(x, y - dimension / 2, color);
         if (x >= dimension / 2 && y < dimension / 2) bottomLeft.setRelativeColor(x - dimension / 2, y, color);
-        if (x >= dimension / 2 && y >= dimension / 2) bottomRight.setRelativeColor(x - dimension / 2, y - dimension / 2, color);
+        if (x >= dimension / 2 && y >= dimension / 2)
+            bottomRight.setRelativeColor(x - dimension / 2, y - dimension / 2, color);
 
         image[x][y] = color;
     }
@@ -110,6 +115,14 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
         return true;
     }
 
+    /*
+     * b b g g
+     * b g g b
+     * b b b g
+     * g g g g
+     *
+     * */
+
     private int[][] divide(int[][] image, int startX, int startY, int length) {
         int[][] divided = new int[length][length];
         for (int i = startX, l = 0; l < length; i++, l++)
@@ -127,6 +140,71 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
                 toArr[i][j] = image[i][j];
 
         return toArr;
+    }
+
+    /*
+     * b b       g g
+     * b b       g g
+     *
+     * w w       p p
+     * w w       p p
+     *
+     * b b g g
+     * b b g g
+     * w w p p
+     * w w p p
+     *
+     * */
+
+    public int[][] toStr() {
+        int[][] res = new int[dimension][dimension];
+        if (isLeaf()) {
+            for (int i = 0; i < res.length; i++) {
+                for (int j = 0; j < res[0].length; j++)
+                    res[i][j] = color;
+            }
+            return res;
+        }
+
+        /*
+        *
+        * g g w p
+        * g g w g
+        * g g w w
+        * w p w w
+        *
+        * w p
+        * w g
+        *
+        * */
+
+
+
+        int[][] topl = topLeft.toStr();
+        int[][] topr = topRight.toStr();
+        int[][] botl = bottomLeft.toStr();
+        int[][] botr = bottomRight.toStr();
+        for (int i = 0; i < res.length - dimension / 2; i++) {
+            for (int j = 0; j < res[0].length - dimension / 2; j++) {
+                res[i][j] = topl[i][j];
+            }
+        }
+        for (int i = 0; i < res.length - dimension / 2; i++) {
+            for (int j = dimension / 2; j < res[0].length; j++) {
+                res[i][j] = topr[i][j - dimension / 2];
+            }
+        }
+        for (int i = dimension / 2; i < res.length; i++) {
+            for (int j = 0; j < res[0].length - dimension / 2; j++) {
+                res[i][j] = botl[i - dimension / 2][j];
+            }
+        }
+        for (int i = dimension / 2; i < res.length; i++) {
+            for (int j = dimension / 2; j < res[0].length; j++) {
+                res[i][j] = botr[i - dimension / 2][j - dimension / 2];
+            }
+        }
+        return res;
     }
 
 }

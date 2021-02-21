@@ -1,5 +1,7 @@
 package Homework.OpsOnLists;
 
+import java.util.Arrays;
+
 public class OpsOnLists {
     public static IntDoubleList reuniteLists(IntDoubleList[] arrayOfLists) {
 	    IntDoubleList res = new IntDoubleList();
@@ -45,6 +47,7 @@ public class OpsOnLists {
         for (int i=0; i<list.size(); i++){
             elems[i] = list.get(i);
         }
+        System.out.println(Arrays.toString(elems));
         for (int i=1; i<elems.length; i++){
             if (elems[i] < value) {
                 for (int j = i - 1; j > 0; j--) {

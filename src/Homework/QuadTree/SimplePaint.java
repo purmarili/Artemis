@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class SimplePaint implements Runnable {
 
@@ -39,7 +40,7 @@ public class SimplePaint implements Runnable {
         final JFrame window = new JFrame("Fundamental Lab of Penguins");
         // Build the paint component
         final PaintPanel paint =
-                new PaintPanel(QuadTreeNodeImpl.buildFromIntArray(new int[512][512]));
+                new PaintPanel(QuadTreeNodeImpl.buildFromIntArray(new int[256][256]));
         window.add(paint, BorderLayout.CENTER);
 
         // Build the menu bar
@@ -132,6 +133,7 @@ public class SimplePaint implements Runnable {
             this.width = qt.getDimension();
             this.height = qt.getDimension();
             this.repaint();
+            System.out.println(Arrays.deepToString(qt.toStr()));
         }
 
         @Override

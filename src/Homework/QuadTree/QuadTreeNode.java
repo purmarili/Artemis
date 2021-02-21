@@ -13,6 +13,7 @@ public interface QuadTreeNode {
     int getSize();
     boolean isLeaf();
     int[][] toArray();
+    int[][] toStr();
 
     default double getCompressionRatio() {
         double nodes = this.getSize();
