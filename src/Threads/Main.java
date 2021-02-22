@@ -1,35 +1,44 @@
 package Threads;
 
-public class Main {
-    public static void main(String[] args) {
-        
-        Table table = new Table(4);
+public class Main extends Thread {
 
-        Penguin peter = new Penguin("peter", table);
-        Penguin paul = new Penguin("paul", table);
-        Penguin pam = new Penguin("pam", table);
-        Penguin paula = new Penguin("paula", table);
+    static int [] arr = new int[100];
+    static int index = 0;
 
-        Thread petersThread = new Thread(peter);
-        Thread paulsThread = new Thread(paul);
-        Thread pamsThread = new Thread(pam);
-        Thread paulasThread = new Thread(paula);
-        
-        petersThread.start();
-        paulsThread.start();
-        pamsThread.start();
-        paulasThread.start();
+    public static void main(String[] args) throws InterruptedException {
+//        Main [] threads = new Main[100];
+//        for (int i=0; i<100; i++){
+//            threads[i] = new Main();
+//        }
+//        for (int i=0; i<100; i++){
+//            threads[i].start();
+//        }
+//        threads[5].join();
+        for (int i=0; i<100; i++) arr[i] = i;
+        Main first = new Main();
+        Main second = new Main();
+        first.start();
+        second.start();
 
+        first.join();
+        second.join();
 
-        try {
-            petersThread.join();
-            paulsThread.join();
-            pamsThread.join();
-            paulasThread.join();
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong. Interrupted!");
-            return;
+        System.out.println("This code is outside of the thread");
+    }
+
+    @Override
+    public void run() {
+        while (index < 100){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + " " + arr[index]);
+            index++;
         }
 
+//        for (int i=0; i<10; i++)
+//            System.out.println(Thread.currentThread().getName() + " is working " + i);
     }
 }
