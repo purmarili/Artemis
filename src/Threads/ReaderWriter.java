@@ -21,17 +21,17 @@ public class ReaderWriter {
             final int icopy = i * 1000;
 
             readers[i] = new Thread(() -> {
-                for (int j = 0; j < 10000; j++) {
-                    list.get(icopy);
+                for (int j = 0; j < 100; j++) {
+                    System.out.println(list.get(icopy));
                 }
             });
 
         }
         // the writer inserts 10000 times an element and subsequently deletes it again
         Thread writer = new Thread(() -> {
-            for (int j = 0; j < 10000; j++) {
+            for (int j = 0; j < 100; j++) {
                 list.add(4, "4");
-                list.remove(4);
+                System.out.println((list.remove(4)));
             }
         });
 

@@ -1,6 +1,6 @@
 package Exam.Retake.Second;
 
 public interface Penguin {
-    void vacc() throws Exception;
+    void Vacc(String station) throws Exception;
 }
 

@@ -14,7 +14,7 @@ public class PenguinWaitingQueue {
         list.add(r);
     }
 
-    public synchronized Penguin assign() {
+    public synchronized Penguin assign() throws InterruptedException {
         while (list.size() == 0){
             System.out.println("Waiting");
         }

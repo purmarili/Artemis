@@ -7,6 +7,10 @@ public class Vaccination {
     public Vaccination(int threadCount){
         tasks = new PenguinWaitingQueue();
         threads = new Station[threadCount];
+
+        for (int i=0; i<threadCount; i++)
+            threads[i] = new Station(tasks, i + "");
+
         for (int i=0; i<threadCount; i++){
             threads[i].start();
         }

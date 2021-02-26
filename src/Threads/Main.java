@@ -1,5 +1,8 @@
 package Threads;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends Thread {
 
     static int [] arr = new int[100];
