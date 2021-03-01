@@ -68,6 +68,30 @@ public class QuadTreeNodeImpl implements QuadTreeNode {
         return image[x][y];
     }
 
+    /*
+    *   x = 0 y = 3 color = 5
+    *
+    *   1 1 1 1
+    *   1 1 5 1
+    *   1 1 1 1
+    *   1 1 1 1
+    *
+    *   1 2 3 2
+    *   3 2 3 1
+    *   3 3 3 3
+    *   2 2 2 2
+    *
+    *   3 2
+    *   3 1
+    *
+    *   5
+    *
+    *   x = 0 y = 1
+    *
+    *   3 3
+    *   2 2
+    * */
+
     @Override
     public void setRelativeColor(int x, int y, int color) {
         if (x < 0 || y < 0 || x >= dimension || y >= dimension) throw new IllegalArgumentException();
