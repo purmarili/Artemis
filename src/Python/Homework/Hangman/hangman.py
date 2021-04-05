@@ -2,7 +2,7 @@ from random import randint  # Do not delete this line
 
 
 def getString(word):
-    paintings = {'welcome': [0, 24], 'lost': (100, 113), 'won': (191, 203), 5: (24, 33), 4: (37, 46), 3: (50, 59),
+    paintings = {'welcome': (0, 24), 'lost': (99, 112), 'won': (191, 203), 5: (24, 33), 4: (37, 46), 3: (50, 59),
                  2: (63, 72), 1: (76, 85), 0: (89, 98)}
 
     start = paintings[word][0]
@@ -33,7 +33,7 @@ def getWord():
 
 
 def valid(c):
-    if len(c) == 1 and c.isalpha():
+    if len(c) == 1 and c.isalpha() and c.islower():
         return True
     return False
 
