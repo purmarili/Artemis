@@ -25,8 +25,11 @@ if __name__ == '__main__':
     # print(dict(map(lambda x: ragaca(x), [1, 2, 3, 4])))
     # lst = ["hello", "nika", "giorgi", "asd", "b"]
     # print(dict(map(lambda x: (x, [i for i in x]), lst)))
-    numbers = [1, 2, 3, 4, 5, 6, 7]
-    print(reduce(lambda x,y: x+y, filter(lambda x: x % 2 == 1, numbers), 0))
+    # print(len(list(filter(lambda x: x % 2 == 1, numbers))))
+    numbers = [5, 2, 3, 4, 5, 6, 7]
+    print(reduce(lambda count, x: count + (1 if x % 2 == 1 else 0), numbers, 0))
+    # print(reduce(lambda x,y: x + 1, filter(lambda x: x % 2 == 1, numbers), 0))
+    # print(reduce(lambda x,y: x+y, filter(lambda x: x % 2 == 1, numbers), 0))
     # t = [i for i in range(10)]
     # print(t)
     # print(i for i in range(1,6))
