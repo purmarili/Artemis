@@ -1,32 +1,19 @@
-**********************************************
- * File: pqueue-vector.h
- *
- * A priority queue class backed by an unsorted
- * vector.
- */
 #ifndef PQueue_Vector_Included
 #define PQueue_Vector_Included
 
 #include <string>
 #include <vector>
 using namespace std;
+ 
+class VectorPriorityQueue {
+public:
 
-/* A class representing a priority queue backed by an
- * unsorted Vector.
- */
-class VectorPriorityQueue {
-public:
-	
- * unsorted Vector.
- */
-class VectorPriorityQueue {
-public:
 	/* Constructs a new, empty priority queue backed by a vector. */
 	VectorPriorityQueue();
 	
 	/* Cleans up all memory allocated by this priority queue. */
 	~VectorPriorityQueue();
-	
+
 	/* Returns the number of elements in the priority queue. */
 	int size();
 	

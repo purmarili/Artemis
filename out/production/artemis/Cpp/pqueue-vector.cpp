@@ -1,10 +1,6 @@
-* File: pqueue-vector.cpp
- *
- * Implementation file for the VectorPriorityQueue
- * class.
- */
- 
 #include "pqueue-vector.h"
+#include <iostream>
+
 #include "error.h"
 
 VectorPriorityQueue::VectorPriorityQueue() {
@@ -45,7 +41,7 @@ string VectorPriorityQueue::peek() {
 }
 
 string VectorPriorityQueue::dequeueMin() {
-	
+	vector<int> * a = new vector<int>();
 	if (words.size() == 0) error("We ain't got words here pal");
 
 	string first = words[0];
