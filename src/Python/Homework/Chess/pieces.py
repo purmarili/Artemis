@@ -39,13 +39,6 @@ class Piece:
         else:
             return blackIcons[self.getName()]
 
-    def checkValidPos(self, dest):
-        if dest[0] not in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'):
-            return False
-        if dest[1] not in (1, 2, 3, 4, 5, 6, 7, 8):
-            return False
-        return True
-
     def checkPiece(self, piece):
         if piece is None:
             return True
@@ -56,51 +49,56 @@ class Piece:
 
 class Knight(Piece):
     def checkMove(self, dest):
-        if not self.checkValidPos(dest):
-            return False
-        piece = self.__board.getPiece(dest)
-        move = [abs(dest[0] - self.position[0]), abs(dest[1] - self.position[1])]
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
         if not (move[0] == 1 and move[1] == 2 or move[0] == 2 and move[1] == 1):
             return False
-        if not checkPiece(piece):
+        piece = self._Piece__board.getPiece(dest)
+        if not self.checkPiece(piece):
             return False
         return True
 
 
 class Rook(Piece):
     def checkMove(self, dest):
-        move = [dest[0] - position[0], dest[1] - position[1]]
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
-        if move[0] == 0 or move[1] == 0:
-            return True
-
-        return False
+        if not ((move[0] == 0 and move[1] != 0) or (move[0] != 0 and move[1] == 0)):
+            return False
+        piece = self._Piece__board.getPiece(dest)
+        if not self.checkPiece(piece):
+            return False
+        return True
 
 
 class Bishop(Piece):
     def checkMove(self, dest):
-        move = [abs(dest[0] - position[0]), abs(dest[1] - position[1])]
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
-        if move[0] == move[1]:
-            return True
-
-        return False
+        if move[0] != move[1]:
+            return False
+        piece = self._Piece__board.getPiece(dest)
+        if not self.checkPiece(piece):
+            return False
+        return True
 
 
 class Queen(Piece):
     def checkMove(self, dest):
-        move = [abs(dest[0] - position[0]), abs(dest[1] - position[1])]
-        if move[0] == move[1] or move[0] == 0 or move[1] == 0:
-            return True
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
-        return False
+        if not (((move[0] == 0 and move[1] != 0) or (move[0] != 0 and move[1] == 0)) or (move[0] == move[1])):
+            return False
+        piece = self._Piece__board.getPiece(dest)
+        if not self.checkPiece(piece):
+            return False
+        return True
 
 
 class King(Piece):
 
     def checkMove(self, dest):
-        move = [abs(dest[0] - position[0]), abs(dest[1] - position[1])]
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
         if move[0] <= 1 and move[1] <= 1:
             return True
@@ -115,24 +113,26 @@ class King(Piece):
 class Pawn(Piece):
 
     def checkMove(self, dest):
-        move = [dest[0] - self.position[0], dest[1] - position[1]]
+        move = [abs(ord(dest[0]) - ord(self.position[0])), abs(dest[1] - self.position[1])]
 
-        if self[1] == Player(1) and abs(move[1]) == move[0] == 1:
-            return True
+        if move[0] != 0 or move[1] > 2:
+            return False
 
-        if self[1] == Player(2) and abs(move[1]) == 1 and move[0] == -1:
-            return True
-
-        if self[1] == Player(1) and position[0] == 1 and move[1] == 0 and move[0] == 2:
-            return True
-
-        if self[1] == Player(2) and position[0] == 6 and move[1] == 0 and move[0] == -2:
-            return True
-
-        if self[1] == Player(1) and move[1] == 0 and move[0] == 1:
-            return True
-
-        if self[1] == Player(2) and move[1] == 0 and move[0] == -1:
-            return True
-
-        return False
+        if self.color == "White":
+            if move[1] == 2:
+                if not (self.position[1] == 2 and dest[1] > self.position[1]):
+                    return False
+            if move[1] == 1:
+                if dest[1] <= self.position[1]:
+                    return False
+        else:
+            if move[1] == 2:
+                if not (self.position[1] == 7 and dest[1] < self.position[1]):
+                    return False
+            if move[1] == 1:
+                if dest[1] >= self.position[1]:
+                    return False
+        piece = self._Piece__board.getPiece(dest)
+        if not self.checkPiece(piece):
+            return False
+        return True
