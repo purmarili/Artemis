@@ -1,8 +1,10 @@
 package LES_11;
 
+import java.util.Collection;
 import java.util.function.Predicate;
 
-public class OurArrayList<T> implements OurList<T>{
+
+public class OurArrayList<T> implements OurList<T> {
     private Object [] data;
     private int allocated = 10;
     private int size = 0;
